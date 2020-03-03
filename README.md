@@ -1,6 +1,6 @@
 # ZutRoulette by Zut Students
 ## About
-* This is app to random chat with strangers made by students ZUT.
+* This is app to random chat with strangers made by ZUT students.
 * We also attach Symfony API use to manage messages
 * App use to be installed on smartphone with android version : API 21 : Android 5.0 (Lollipop)
 
