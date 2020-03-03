@@ -1,4 +1,4 @@
-package zut.roulette.entity;
+package zut.roulette.room.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
