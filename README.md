@@ -13,5 +13,7 @@
 
 ## Built With
 * **Symfony API** -  *is an Open Source web framework for API-first projects. Describe the API's data model or import an existing one from Schema.org and get instantly a fully featured read/write API with REST operations, data validation, pagination, sorting, filtering, Swagger documentation, an authorization system, invalidation-based HTTP cache, nested documents, content negotiation and support for modern hypermedia formats (JSON-LD, HAL and Hydra).*
-* **Fragments** - *represents a behavior or a portion of user interface in andorid*
+* **MVVM** - *represents a behavior or a portion of user interface in andorid*
+* **Maven** - *ToDo :*
+* **Lombok** - *ToDo :*
 
