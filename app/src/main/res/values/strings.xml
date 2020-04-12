@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ZutRoulette</string>
+
+    <string name="header_login">ZUT Roulette</string>
+    <string name="login">Pseudonim</string>
+    <string name="login_hint">Pseudonim</string>
+    <string name="talk">Rozpocznij rozmowę</string>
+    </resources>
