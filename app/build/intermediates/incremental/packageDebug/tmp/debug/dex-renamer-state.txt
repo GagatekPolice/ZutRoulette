@@ -1,4 +1,4 @@
-#Sun Apr 12 13:23:53 CEST 2020
+#Sun Apr 12 17:12:14 CEST 2020
 base.0=F\:\\ZutRoulette-Android\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\out\\classes.dex
 path.1=classes.dex
 renamed.1=classes2.dex

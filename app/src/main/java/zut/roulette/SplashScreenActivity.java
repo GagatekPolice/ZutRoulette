@@ -11,7 +11,7 @@ import android.os.Handler;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private final static String TIME_LEFT_KEY = "timeLeft";
-    private final static int DISPLAY_TIME = 6000;
+    private final static int DISPLAY_TIME = 500;
 
     private long displayTimeStart;
     private long displayTime = DISPLAY_TIME;

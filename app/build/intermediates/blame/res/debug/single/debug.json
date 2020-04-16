@@ -8,6 +8,10 @@
         "source": "F:\\ZutRoulette-Android\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
+        "merged": "F:\\ZutRoulette-Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_rounded_edittext.xml.flat",
+        "source": "F:\\ZutRoulette-Android\\app\\src\\main\\res\\drawable\\rounded_edittext.xml"
+    },
+    {
         "merged": "F:\\ZutRoulette-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
         "source": "F:\\ZutRoulette-Android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     },
@@ -30,6 +34,10 @@
     {
         "merged": "F:\\ZutRoulette-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
         "source": "F:\\ZutRoulette-Android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "F:\\ZutRoulette-Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_login.xml.flat",
+        "source": "F:\\ZutRoulette-Android\\app\\src\\main\\res\\layout\\fragment_login.xml"
     },
     {
         "merged": "F:\\ZutRoulette-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",

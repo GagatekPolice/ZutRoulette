@@ -57,7 +57,11 @@ dependencies {
     def design_version = "1.1.0"
     implementation "com.google.android.material:material:$design_version"\
 
-    compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    implementation 'org.jetbrains:annotations-java5:15.0'
+
+
+    implementation 'com.mashape.unirest:unirest-android:1.0+'
 
 }
