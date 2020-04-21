@@ -1,4 +1,4 @@
-package loginflow.app.database;
+package zut.roulette.database;
 
 
 import android.content.ContentValues;
@@ -17,13 +17,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
 
-    private static final String TABLE_NAME = "users_table";
+    private static final String TABLE_NAME = "user";
     private static final String COLUMN_ID = "id";
+    private static final String COLUMN_USER = "userId";
     private static final String COLUMN_NICKNAME = "nickname";
     private static final String COLUMN_INTERLOCUTOR = "interlocutor";
     private static final String COLUMN_INTERLOCUTOR_NICKNAME = "interlocutorNickname";
+    private static final String COLUMN_CHAT = "chat";
 
-    private static final int USER_IS_LOGGED = 1;
 
     private static final int DEFAULT_USER_ID = 1;
 
@@ -40,6 +41,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createTable =
                 "CREATE TABLE " + TABLE_NAME + "(" +
                         COLUMN_ID + " integer primary key, " +
+                        COLUMN_CHAT + " integer," +
+                        COLUMN_USER + " integer," +
                         COLUMN_NICKNAME + " text," +
                         COLUMN_INTERLOCUTOR + " integer," +
                         COLUMN_INTERLOCUTOR_NICKNAME + " text)";
@@ -52,29 +55,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-//    public void insertUser(String login, String email, String password, int session) {
-//        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put(COLUMN_LOGIN, login);
-//        contentValues.put(COLUMN_EMAIL, email);
-//        contentValues.put(COLUMN_PASSWORD, password);
-//        contentValues.put(COLUMN_SESSION, session);
-//        sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
-//    }
-//
-//    public void updateUser(String login, String email, String password, int session) {
-//        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put(COLUMN_LOGIN, login);
-//        values.put(COLUMN_EMAIL, email);
-//        values.put(COLUMN_PASSWORD, password);
-//        values.put(COLUMN_SESSION, session);
-//
-//        sqLiteDatabase.update(TABLE_NAME, values, COLUMN_ID + "=" + DEFAULT_USER_ID, null);
-//    }
+    public void insertUser(int userId, String nickname, int interlocutor, String interlocutorNickname,int chat) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_USER, userId);
+        contentValues.put(COLUMN_NICKNAME, nickname);
+        contentValues.put(COLUMN_INTERLOCUTOR, interlocutor);
+        contentValues.put(COLUMN_INTERLOCUTOR_NICKNAME, interlocutorNickname);
+        contentValues.put(COLUMN_CHAT, chat);
+        sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
+    }
 
-    public Cursor getUserData() {
+    public void updateUser(int userId, String nickname, int interlocutor, String interlocutorNickname, int chat) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER, userId);
+        values.put(COLUMN_NICKNAME, nickname);
+        values.put(COLUMN_INTERLOCUTOR, interlocutor);
+        values.put(COLUMN_INTERLOCUTOR_NICKNAME, interlocutorNickname);
+        values.put(COLUMN_CHAT, chat);
+
+        sqLiteDatabase.update(TABLE_NAME, values, COLUMN_ID + "=" + DEFAULT_USER_ID, null);
+    }
+
+    public Cursor getDatabase() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         return sqLiteDatabase.rawQuery(USER_DATA_DATABASE_QUERY, null);
     }
@@ -89,43 +94,100 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return numberOfRows() <= 0;
     }
 
-    public boolean isUserIsLoggedIn() {
+//    public boolean isUserIsLoggedIn() {
+//        if (isEmpty()) {
+//            return false;
+//        }
+//        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+//        Cursor userData = sqLiteDatabase.rawQuery(USER_DATA_DATABASE_QUERY, null);
+//
+//        userData.moveToFirst();
+//        boolean isLogged = userData.getInt(userData.getColumnIndex(DatabaseHelper.COLUMN_SESSION)) == USER_IS_LOGGED;
+//        if (!userData.isClosed()) {
+//            userData.close();
+//        }
+//        return isLogged;
+//    }
+//
+//    public void changeUserSession(int session) {
+//        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+//
+//        ContentValues values = new ContentValues();
+//        values.put(COLUMN_SESSION, session);
+//
+//        sqLiteDatabase.update(TABLE_NAME, values, COLUMN_ID + "=" + DEFAULT_USER_ID, null);
+//    }
+//
+//
+    public int getUserId() {
         if (isEmpty()) {
-            return false;
+            return 0;
         }
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor userData = sqLiteDatabase.rawQuery(USER_DATA_DATABASE_QUERY, null);
-
         userData.moveToFirst();
-        boolean isLogged = userData.getInt(userData.getColumnIndex(DatabaseHelper.COLUMN_SESSION)) == USER_IS_LOGGED;
+        int userId = userData.getInt(userData.getColumnIndex(DatabaseHelper.COLUMN_USER));
         if (!userData.isClosed()) {
             userData.close();
         }
-        return isLogged;
+        return userId;
     }
 
-    public void changeUserSession(int session) {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_SESSION, session);
-
-        sqLiteDatabase.update(TABLE_NAME, values, COLUMN_ID + "=" + DEFAULT_USER_ID, null);
-    }
-
-
-    public String getEmail() {
+    public String getUserNickName() {
         if (isEmpty()) {
             return "";
         }
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor userData = sqLiteDatabase.rawQuery(USER_DATA_DATABASE_QUERY, null);
         userData.moveToFirst();
-        String email = userData.getString(userData.getColumnIndex(DatabaseHelper.COLUMN_EMAIL));
+        String userNickname = userData.getString(userData.getColumnIndex(DatabaseHelper.COLUMN_NICKNAME));
         if (!userData.isClosed()) {
             userData.close();
         }
-        return email;
+        return userNickname;
     }
+
+    public int getChatId() {
+        if (isEmpty()) {
+            return 0;
+        }
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor userData = sqLiteDatabase.rawQuery(USER_DATA_DATABASE_QUERY, null);
+        userData.moveToFirst();
+        int chatId = userData.getInt(userData.getColumnIndex(DatabaseHelper.COLUMN_CHAT));
+        if (!userData.isClosed()) {
+            userData.close();
+        }
+        return chatId;
+    }
+
+    public int getInterlocutorId() {
+        if (isEmpty()) {
+            return 0;
+        }
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor userData = sqLiteDatabase.rawQuery(USER_DATA_DATABASE_QUERY, null);
+        userData.moveToFirst();
+        int interlocutorId = userData.getInt(userData.getColumnIndex(DatabaseHelper.COLUMN_INTERLOCUTOR));
+        if (!userData.isClosed()) {
+            userData.close();
+        }
+        return interlocutorId;
+    }
+
+    public String getInterlocutorNickname() {
+        if (isEmpty()) {
+            return "";
+        }
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor userData = sqLiteDatabase.rawQuery(USER_DATA_DATABASE_QUERY, null);
+        userData.moveToFirst();
+        String interlocutorNickname = userData.getString(userData.getColumnIndex(DatabaseHelper.COLUMN_INTERLOCUTOR_NICKNAME));
+        if (!userData.isClosed()) {
+            userData.close();
+        }
+        return interlocutorNickname;
+    }
+
 
 }

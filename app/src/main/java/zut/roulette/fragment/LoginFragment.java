@@ -1,10 +1,15 @@
 package zut.roulette.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -13,13 +18,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import loginflow.app.database.DatabaseHelper;
 import zut.roulette.R;
+import zut.roulette.database.DatabaseHelper;
 import zut.roulette.request.PostUser;
 
 
@@ -34,9 +40,38 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private TextView tvValidityInfo;
     private ProgressBar prbLogin;
 
+    private DatabaseHelper databaseHelper;
+
     private AsyncTask postUserAsync;
 
+    private Handler postHandler = new Handler();
+    private Runnable nextScreenRunner = new Runnable() {
+        @Override
+        public void run() {
+            postHandler.postDelayed(nextScreenRunner, 500);
+            if (String.valueOf(postUserAsync.getStatus()).equals("FINISHED")){
+                if (databaseHelper.getChatId() != 0){
+                    Log.i("ChatAPI", "FIND USER CHAT ");
+                    prbLogin.setVisibility(View.INVISIBLE);
+                    postHandler.removeCallbacks(nextScreenRunner);
+
+                    Fragment newFragment = new ChatFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                    transaction.replace(R.id.mainFragment, newFragment);
+                    transaction.addToBackStack(null);
+
+                    transaction.commit();
+                } else {
+                    // TODO: Wyszukiwanie chatu ( request )
+                }
+
+            }
+        }
+    };
+
     public LoginFragment() {
+
     }
 
 
@@ -71,8 +106,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.login_fragment_btn_login) {
+            hideSoftKeyboard(Objects.requireNonNull(getActivity()),etTypedLogin);
             tvValidityInfo.setText("");
-            DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+            databaseHelper = new DatabaseHelper(getContext());
 
             final String login = String.valueOf(etTypedLogin.getText());
 
@@ -84,7 +120,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 prbLogin.setVisibility(View.VISIBLE);
 
                 postUserAsync = new PostUser(etTypedLogin.getText().toString(),databaseHelper).execute();
-
+                nextScreenRunner.run();
 
             }
         }
@@ -107,6 +143,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         if (postUserAsync != null){
             postUserAsync.cancel(true);
         }
+        postHandler.removeCallbacks(nextScreenRunner);
     }
 
     @Override
@@ -115,6 +152,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         if (postUserAsync != null){
             postUserAsync.cancel(true);
         }
+        postHandler.removeCallbacks(nextScreenRunner);
+    }
+
+    private static void hideSoftKeyboard (Activity activity, View view)
+    {
+        InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
     }
 
 }

@@ -36,6 +36,10 @@
         "source": "F:\\ZutRoulette-Android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
     },
     {
+        "merged": "F:\\ZutRoulette-Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_chat.xml.flat",
+        "source": "F:\\ZutRoulette-Android\\app\\src\\main\\res\\layout\\fragment_chat.xml"
+    },
+    {
         "merged": "F:\\ZutRoulette-Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_login.xml.flat",
         "source": "F:\\ZutRoulette-Android\\app\\src\\main\\res\\layout\\fragment_login.xml"
     },
