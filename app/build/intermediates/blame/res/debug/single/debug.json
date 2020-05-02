@@ -48,6 +48,10 @@
         "source": "F:\\ZutRoulette-Android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     },
     {
+        "merged": "F:\\ZutRoulette-Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_messages_list.xml.flat",
+        "source": "F:\\ZutRoulette-Android\\app\\src\\main\\res\\layout\\messages_list.xml"
+    },
+    {
         "merged": "F:\\ZutRoulette-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher.xml.flat",
         "source": "F:\\ZutRoulette-Android\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher.xml"
     },

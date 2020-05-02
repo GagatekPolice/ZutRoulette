@@ -1455,6 +1455,7 @@ id alertTitle
 id all
 id always
 id async
+id author
 id auto
 id barrier
 id beginning
@@ -1600,6 +1601,7 @@ id pin
 id progress_circular
 id progress_horizontal
 id radio
+id recyclerview_messages
 id right
 id right_icon
 id right_side
@@ -1775,6 +1777,7 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout fragment_chat
 layout fragment_login
+layout messages_list
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions
 layout mtrl_alert_dialog_title
