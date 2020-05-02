@@ -18,7 +18,7 @@
 12-->F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:6:22-76
 13
 14    <application
-14-->F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:8:5-27:19
+14-->F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:8:5-30:19
 15        android:allowBackup="true"
 15-->F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:9:9-35
 16        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -52,17 +52,20 @@
 30-->F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:22:27-74
 31            </intent-filter>
 32        </activity>
-33        <activity android:name="zut.roulette.MainActivity" >
-33-->F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:25:9-26:20
-33-->F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:25:19-47
-34        </activity>
-35
-36        <service
-36-->[androidx.room:room-runtime:2.2.4] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\85801fa82fbe3a1781c547d5c96fb84b\room-runtime-2.2.4\AndroidManifest.xml:25:9-27:40
-37            android:name="androidx.room.MultiInstanceInvalidationService"
-37-->[androidx.room:room-runtime:2.2.4] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\85801fa82fbe3a1781c547d5c96fb84b\room-runtime-2.2.4\AndroidManifest.xml:26:13-74
-38            android:exported="false" />
-38-->[androidx.room:room-runtime:2.2.4] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\85801fa82fbe3a1781c547d5c96fb84b\room-runtime-2.2.4\AndroidManifest.xml:27:13-37
-39    </application>
-40
-41</manifest>
+33        <activity
+33-->F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:25:9-29:20
+34            android:name="zut.roulette.MainActivity"
+34-->F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:26:21-49
+35            android:screenOrientation="portrait" >
+35-->F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:27:21-57
+36        </activity>
+37
+38        <service
+38-->[androidx.room:room-runtime:2.2.4] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\85801fa82fbe3a1781c547d5c96fb84b\room-runtime-2.2.4\AndroidManifest.xml:25:9-27:40
+39            android:name="androidx.room.MultiInstanceInvalidationService"
+39-->[androidx.room:room-runtime:2.2.4] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\85801fa82fbe3a1781c547d5c96fb84b\room-runtime-2.2.4\AndroidManifest.xml:26:13-74
+40            android:exported="false" />
+40-->[androidx.room:room-runtime:2.2.4] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\85801fa82fbe3a1781c547d5c96fb84b\room-runtime-2.2.4\AndroidManifest.xml:27:13-37
+41    </application>
+42
+43</manifest>

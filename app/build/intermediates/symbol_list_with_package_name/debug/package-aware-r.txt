@@ -1539,6 +1539,7 @@ id largeLabel
 id left
 id line1
 id line3
+id linearLayout
 id listMode
 id list_item
 id login_fragment_btn_login
@@ -1869,6 +1870,8 @@ string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
 string app_name
 string appbar_scrolling_view_behavior
+string author
+string blank_text
 string bottom_sheet_behavior
 string character_counter_content_description
 string character_counter_overflowed_content_description
@@ -1930,6 +1933,7 @@ string search_menu_title
 string send
 string status_bar_notification_info_overflow
 string talk
+string user_is_logged
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog

@@ -15,4 +15,6 @@ public class Message {
         this.author = author;
         this.text = text;
     }
+
+
 }

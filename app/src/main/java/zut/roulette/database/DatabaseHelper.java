@@ -109,16 +109,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        return isLogged;
 //    }
 //
-//    public void changeUserSession(int session) {
-//        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        values.put(COLUMN_SESSION, session);
-//
-//        sqLiteDatabase.update(TABLE_NAME, values, COLUMN_ID + "=" + DEFAULT_USER_ID, null);
-//    }
-//
-//
+    public void setChatId(int chatId) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_CHAT, chatId);
+
+        sqLiteDatabase.update(TABLE_NAME, values, COLUMN_ID + "=" + DEFAULT_USER_ID, null);
+    }
+
+    public void setInterlocutorId(int interlocutorId) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_INTERLOCUTOR, interlocutorId);
+
+        sqLiteDatabase.update(TABLE_NAME, values, COLUMN_ID + "=" + DEFAULT_USER_ID, null);
+    }
+
+    public void setInterlocutornickname(String interlocutorNickname) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_INTERLOCUTOR_NICKNAME, interlocutorNickname);
+
+        sqLiteDatabase.update(TABLE_NAME, values, COLUMN_ID + "=" + DEFAULT_USER_ID, null);
+    }
+
+
     public int getUserId() {
         if (isEmpty()) {
             return 0;

@@ -30,7 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="zut.roulette.MainActivity" >
+        <activity
+            android:name="zut.roulette.MainActivity"
+            android:screenOrientation="portrait" >
         </activity>
 
         <service

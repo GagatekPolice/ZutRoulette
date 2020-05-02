@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-29:12
-INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-29:12
-INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-29:12
-INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-29:12
+ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-32:12
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\eaf17b24d60dc773c7680b20ac141638\material-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\ea88890b09526096266c9c16859169ae\appcompat-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\cb3ee0668a2ccffbec6ced598c9d8e79\constraintlayout-1.1.3\AndroidManifest.xml:2:1-11:12
@@ -45,20 +45,20 @@ MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\Krakowiak\.gradl
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\d0451c97239df5be4dc66598fdd5c551\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.print:print:1.0.0] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\80a24a77b2345ebb709fc7815d75c401\print-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\2e208f9141563db79bd49ce93534ac4d\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
-INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-29:12
-INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-29:12
-INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-29:12
+INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-32:12
+INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-32:12
 	package
 		ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:3:5-27
 		INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml
 		INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml
-		ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-29:12
+		ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-32:12
 		INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml
-		ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-29:12
+		ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:1-32:12
 		INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:2:11-69
@@ -71,7 +71,7 @@ ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:6:5-79
 	android:name
 		ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:6:22-76
 application
-ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:8:5-27:19
+ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:8:5-30:19
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\eaf17b24d60dc773c7680b20ac141638\material-1.1.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\eaf17b24d60dc773c7680b20ac141638\material-1.1.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\Krakowiak\.gradle\caches\transforms-2\files-2.1\cb3ee0668a2ccffbec6ced598c9d8e79\constraintlayout-1.1.3\AndroidManifest.xml:9:5-20
@@ -113,9 +113,11 @@ ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:22:17-77
 	android:name
 		ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:22:27-74
 activity#zut.roulette.MainActivity
-ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:25:9-26:20
+ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:25:9-29:20
+	android:screenOrientation
+		ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:27:21-57
 	android:name
-		ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:25:19-47
+		ADDED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml:26:21-49
 uses-sdk
 INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from F:\ZutRoulette-Android\app\src\main\AndroidManifest.xml

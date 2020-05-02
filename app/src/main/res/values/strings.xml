@@ -12,4 +12,5 @@
     <string name="messageHint">Aa</string>
     <string name="blank_text">Blank text.</string>
     <string name="author">Author</string>
+    <string name="user_is_logged">Spokojnie, szukamy dla Ciebie chatu.</string>
 </resources>

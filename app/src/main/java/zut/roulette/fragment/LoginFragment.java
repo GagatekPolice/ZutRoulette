@@ -3,6 +3,7 @@ package zut.roulette.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,9 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -26,6 +29,7 @@ import java.util.regex.Pattern;
 
 import zut.roulette.R;
 import zut.roulette.database.DatabaseHelper;
+import zut.roulette.request.GetUserChat;
 import zut.roulette.request.PostUser;
 
 
@@ -48,7 +52,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private Runnable nextScreenRunner = new Runnable() {
         @Override
         public void run() {
-            postHandler.postDelayed(nextScreenRunner, 500);
+            postHandler.postDelayed(nextScreenRunner, 2000);
             if (String.valueOf(postUserAsync.getStatus()).equals("FINISHED")){
                 if (databaseHelper.getChatId() != 0){
                     Log.i("ChatAPI", "FIND USER CHAT ");
@@ -63,7 +67,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
                     transaction.commit();
                 } else {
-                    // TODO: Wyszukiwanie chatu ( request )
+                    Log.i("ChatAPI", "RETRY find chat ");
+                    new GetUserChat(databaseHelper).execute();
                 }
 
             }
@@ -103,25 +108,27 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.login_fragment_btn_login) {
             hideSoftKeyboard(Objects.requireNonNull(getActivity()),etTypedLogin);
             tvValidityInfo.setText("");
             databaseHelper = new DatabaseHelper(getContext());
+            if (prbLogin.isAnimating()) {
+                Toast.makeText(getActivity(), getResources().getString(R.string.user_is_logged), Toast.LENGTH_LONG).show();
+            } else {
+                final String login = String.valueOf(etTypedLogin.getText());
 
-            final String login = String.valueOf(etTypedLogin.getText());
+                final boolean isLoginValid = isDataValid(login);
 
+                if (isLoginValid) {
+                    prbLogin.setVisibility(View.VISIBLE);
 
-            final boolean isLoginValid = isDataValid(login);
+                    postUserAsync = new PostUser(etTypedLogin.getText().toString(), databaseHelper).execute();
+                    nextScreenRunner.run();
 
-
-            if (isLoginValid) {
-                prbLogin.setVisibility(View.VISIBLE);
-
-                postUserAsync = new PostUser(etTypedLogin.getText().toString(),databaseHelper).execute();
-                nextScreenRunner.run();
-
+                }
             }
         }
     }
