@@ -899,12 +899,14 @@ color primary_text_default_material_dark
 color primary_text_default_material_light
 color primary_text_disabled_material_dark
 color primary_text_disabled_material_light
+color red
 color ripple_material_dark
 color ripple_material_light
 color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color stranger
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -1396,7 +1398,6 @@ id SHIFT
 id SYM
 id TOP_END
 id TOP_START
-id _dynamic
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
 id accessibility_custom_action_1
@@ -1470,6 +1471,9 @@ id center_vertical
 id chains
 id chat_fragment_btn_next
 id chat_fragment_btn_send
+id chat_fragment_et_text
+id chat_fragment_progressBar
+id chat_fragment_tv_stranger
 id checkbox
 id checked
 id chip
@@ -1932,7 +1936,10 @@ string path_password_strike_through
 string search_menu_title
 string send
 string status_bar_notification_info_overflow
+string stranger_disconected
 string talk
+string talk_with
+string text_to_short
 string user_is_logged
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light

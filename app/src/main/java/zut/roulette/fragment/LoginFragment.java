@@ -35,7 +35,7 @@ import zut.roulette.request.PostUser;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
-    private final static String LOGIN_PATTERN = "[a-zA-Z1-9]+";
+    private final static String LOGIN_PATTERN = "[a-zA-Z0-9]{3,32}";
 
     private final static Pattern loginPattern = Pattern.compile(LOGIN_PATTERN);
 
@@ -52,7 +52,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private Runnable nextScreenRunner = new Runnable() {
         @Override
         public void run() {
-            postHandler.postDelayed(nextScreenRunner, 2000);
+            postHandler.postDelayed(nextScreenRunner, 1000);
             if (String.valueOf(postUserAsync.getStatus()).equals("FINISHED")){
                 if (databaseHelper.getChatId() != 0){
                     Log.i("ChatAPI", "FIND USER CHAT ");
@@ -115,8 +115,20 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             hideSoftKeyboard(Objects.requireNonNull(getActivity()),etTypedLogin);
             tvValidityInfo.setText("");
             databaseHelper = new DatabaseHelper(getContext());
-            if (prbLogin.isAnimating()) {
+            if (prbLogin.isActivated()) {
                 Toast.makeText(getActivity(), getResources().getString(R.string.user_is_logged), Toast.LENGTH_LONG).show();
+                // ToDo: usunąc to -----
+                final String login = String.valueOf(etTypedLogin.getText());
+
+                final boolean isLoginValid = isDataValid(login);
+
+                if (isLoginValid) {
+                    prbLogin.setVisibility(View.VISIBLE);
+
+                    postUserAsync = new PostUser(etTypedLogin.getText().toString(), databaseHelper).execute();
+                    nextScreenRunner.run();
+                // ToDo: usunąc to ------
+                }
             } else {
                 final String login = String.valueOf(etTypedLogin.getText());
 

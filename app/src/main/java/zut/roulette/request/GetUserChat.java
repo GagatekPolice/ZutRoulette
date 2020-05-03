@@ -43,11 +43,12 @@ public class GetUserChat extends AsyncTask<Void, Void, Void> {
         try {
             jsonResponse = new JSONObject(response.getBody());
         }catch (JSONException err){
-            Log.d("Error", err.toString());
+            Log.e("Error", "Chat not found "+err);
         }
-        Log.i("ChatAPI"," GET USER CHAT REQUEST " + String.valueOf(jsonResponse) );
 
         if(jsonResponse.has("chatId")) {
+            Log.i("ChatAPI"," GET USER CHAT REQUEST " + String.valueOf(jsonResponse) );
+
             try {
                 databaseHelper.setChatId(Integer.parseInt(jsonResponse.getString("chatId")));
                 databaseHelper.setInterlocutorId(Integer.parseInt(jsonResponse.getString("userIdCreated")));
@@ -56,14 +57,15 @@ public class GetUserChat extends AsyncTask<Void, Void, Void> {
                 e.printStackTrace();
             }
 
+            Log.i("ChatAPI"," DATABASE " + databaseHelper.getDatabase());
+            Log.i("ChatAPI"," DATABASE USER ID " + databaseHelper.getUserId());
+            Log.i("ChatAPI"," DATABASE USER NICKNAME " + databaseHelper.getUserNickName());
+            Log.i("ChatAPI"," DATABASE CHAT ID " + databaseHelper.getChatId());
+            Log.i("ChatAPI"," DATABASE INTERLOCUTOR ID " + databaseHelper.getInterlocutorId());
+            Log.i("ChatAPI"," DATABASE INTERLOCUTOR NICKNAME " + databaseHelper.getInterlocutorNickname());
         }
 
-        Log.i("ChatAPI"," DATABASE " + databaseHelper.getDatabase());
-        Log.i("ChatAPI"," DATABASE USER ID " + databaseHelper.getUserId());
-        Log.i("ChatAPI"," DATABASE USER NICKNAME " + databaseHelper.getUserNickName());
-        Log.i("ChatAPI"," DATABASE CHAT ID " + databaseHelper.getChatId());
-        Log.i("ChatAPI"," DATABASE INTERLOCUTOR ID " + databaseHelper.getInterlocutorId());
-        Log.i("ChatAPI"," DATABASE INTERLOCUTOR NICKNAME " + databaseHelper.getInterlocutorNickname());
+
 
         return null;
     }

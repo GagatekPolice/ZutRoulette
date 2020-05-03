@@ -42,6 +42,8 @@ public class PostUser extends AsyncTask<Void, Void, Void> {
 
         JSONObject jsonResponse = new JSONObject();
 
+        Log.i("ChatAPI"," POST USER REQUEST " + response);
+
         try {
             jsonResponse = new JSONObject(response.getBody());
         }catch (JSONException err){

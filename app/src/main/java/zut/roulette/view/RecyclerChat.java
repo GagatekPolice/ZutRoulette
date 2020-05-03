@@ -2,6 +2,7 @@ package zut.roulette.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,9 @@ public class RecyclerChat extends RecyclerView.Adapter<RecyclerChat.ViewHolder> 
         Message currentMessages = messages.get(position);
         this.holder = holder;
         holder.bindTo(currentMessages, context);
+        if(messages.size()>1 && messages.get(messages.size()-1).getText().equals("Czat zakończył się.")){
+            holder.tvMessage.setTextColor(Color.parseColor("#c70039"));
+        }
     }
 
     @Override

@@ -1,75 +1,170 @@
 package zut.roulette.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import zut.roulette.R;
+import zut.roulette.database.DatabaseHelper;
 import zut.roulette.model.Message;
+import zut.roulette.request.GetMessage;
+import zut.roulette.request.GetUserChat;
+import zut.roulette.request.PostMessage;
 import zut.roulette.view.RecyclerChat;
 
 
-public class ChatFragment extends Fragment {
+public class ChatFragment extends Fragment implements View.OnClickListener {
 
+    private final static String MESSAGE_PATTERN = ".{1,256}";
+    private final static Pattern messagePattern = Pattern.compile(MESSAGE_PATTERN);
+
+    private EditText etMessage;
+    private TextView tvStranger;
+    private Button btnSend;
+    private Button btnExit;
+
+    private ArrayList<Message> messages = new ArrayList<>();
+    private RecyclerChat adapter;
+
+    private DatabaseHelper databaseHelper;
+    private RecyclerView recyclerView;
+
+    private ProgressBar prbFindChat;
+
+    private Handler postHandler = new Handler();
+    private Runnable getMessageRunner = new Runnable() {
+        @Override
+        public void run() {
+            postHandler.postDelayed(getMessageRunner, 500);
+
+            new GetMessage(databaseHelper,messages,adapter,recyclerView).execute();
+        }
+    };
+
+    private Runnable findChateRunner = new Runnable() {
+        @Override
+        public void run() {
+            postHandler.postDelayed(getMessageRunner, 500);
+            if (databaseHelper.getChatId() != 0) {
+                Log.i("ChatAPI", "FIND USER CHAT ");
+                prbFindChat.setVisibility(View.INVISIBLE);
+
+                messages.clear();
+                adapter.notifyDataSetChanged();
+
+
+            } else {
+                Log.i("ChatAPI", "RETRY find chat ");
+                new GetUserChat(databaseHelper).execute();
+            }
+        }
+    };
 
     public ChatFragment() {
-        // Required empty public constructor
     }
 
-
-    public static ChatFragment newInstance(String param1, String param2) {
-        ChatFragment fragment = new ChatFragment();
-
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-
         return inflater.inflate(R.layout.fragment_chat, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerview_messages);
 
 
-        ArrayList<Message> mNewsData = new ArrayList<>();
+        btnExit = view.findViewById(R.id.chat_fragment_btn_next);
+        btnSend = view.findViewById(R.id.chat_fragment_btn_send);
+        etMessage = view.findViewById(R.id.chat_fragment_et_text);
+        tvStranger = view.findViewById(R.id.chat_fragment_tv_stranger);
+        prbFindChat = view.findViewById(R.id.chat_fragment_progressBar);
 
-        mNewsData.add(new Message("Rudy","siemka"));
-        mNewsData.add(new Message("Doman","siemka chuju"));
+        btnExit.setOnClickListener(this);
+        btnSend.setOnClickListener(this);
 
-        RecyclerChat adapter = new RecyclerChat(getActivity(), mNewsData);
+        databaseHelper = new DatabaseHelper(getContext());
+
+        recyclerView = view.findViewById(R.id.recyclerview_messages);
+
+        adapter = new RecyclerChat(getActivity(), messages);
 
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
+        llm.setStackFromEnd(true);
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter( adapter );
 
-        Collections.reverse(mNewsData);
+
         adapter.notifyDataSetChanged();
 
+        getMessageRunner.run();
+
+        tvStranger.setText( getResources().getString(R.string.talk_with) + " " + databaseHelper.getInterlocutorNickname());
+
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.chat_fragment_btn_send:
+                Matcher matcher = ChatFragment.messagePattern.matcher(etMessage.getText());
+                if (!matcher.matches()) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.text_to_short), Toast.LENGTH_LONG).show();
+                    break;
+                }
+                new PostMessage(String.valueOf(etMessage.getText()),databaseHelper).execute();
+
+                messages.add(new Message(databaseHelper.getUserNickName(),String.valueOf(etMessage.getText())));
+                adapter.notifyDataSetChanged();
+                recyclerView.smoothScrollToPosition(messages.size() - 1);
+
+
+                etMessage.setText("");
+                break;
+            case R.id.chat_fragment_btn_next:
+                new PostMessage(getResources().getString(R.string.stranger_disconected),databaseHelper).execute();
+
+                messages.add(new Message("INFO",getResources().getString(R.string.stranger_disconected)));
+                adapter.notifyDataSetChanged();
+                recyclerView.smoothScrollToPosition(messages.size() - 1);
+
+                databaseHelper.setChatId(0);
+                databaseHelper.setInterlocutornickname("");
+                databaseHelper.setInterlocutorId(0);
+
+                break;
+        }
+
+
     }
 }
