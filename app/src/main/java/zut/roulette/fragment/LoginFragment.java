@@ -59,6 +59,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     prbLogin.setVisibility(View.INVISIBLE);
                     postHandler.removeCallbacks(nextScreenRunner);
 
+
                     Fragment newFragment = new ChatFragment();
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
@@ -163,6 +164,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             postUserAsync.cancel(true);
         }
         postHandler.removeCallbacks(nextScreenRunner);
+        databaseHelper.close();
     }
 
     @Override

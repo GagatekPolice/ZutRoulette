@@ -27,6 +27,7 @@ import java.util.regex.Pattern;
 import zut.roulette.R;
 import zut.roulette.database.DatabaseHelper;
 import zut.roulette.model.Message;
+import zut.roulette.request.DeleteChat;
 import zut.roulette.request.GetMessage;
 import zut.roulette.request.GetUserChat;
 import zut.roulette.request.PostMessage;
@@ -51,20 +52,21 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 
     private ProgressBar prbFindChat;
 
-    private Handler postHandler = new Handler();
+    private Handler getMessageHandler = new Handler();
     private Runnable getMessageRunner = new Runnable() {
         @Override
         public void run() {
-            postHandler.postDelayed(getMessageRunner, 500);
+            getMessageHandler.postDelayed(getMessageRunner, 500);
 
             new GetMessage(databaseHelper,messages,adapter,recyclerView).execute();
         }
     };
 
+    private Handler getChatHandler = new Handler();
     private Runnable findChateRunner = new Runnable() {
         @Override
         public void run() {
-            postHandler.postDelayed(getMessageRunner, 500);
+            getChatHandler.postDelayed(getMessageRunner, 500);
             if (databaseHelper.getChatId() != 0) {
                 Log.i("ChatAPI", "FIND USER CHAT ");
                 prbFindChat.setVisibility(View.INVISIBLE);
@@ -72,10 +74,13 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                 messages.clear();
                 adapter.notifyDataSetChanged();
 
+                getMessageRunner.run();
+                getChatHandler.removeCallbacks(findChateRunner);
 
             } else {
                 Log.i("ChatAPI", "RETRY find chat ");
                 new GetUserChat(databaseHelper).execute();
+                prbFindChat.setVisibility(View.INVISIBLE);
             }
         }
     };
@@ -153,14 +158,16 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.chat_fragment_btn_next:
                 new PostMessage(getResources().getString(R.string.stranger_disconected),databaseHelper).execute();
+                new DeleteChat(getResources().getString(R.string.stranger_disconected),databaseHelper).execute();
 
                 messages.add(new Message("INFO",getResources().getString(R.string.stranger_disconected)));
+
                 adapter.notifyDataSetChanged();
                 recyclerView.smoothScrollToPosition(messages.size() - 1);
 
-                databaseHelper.setChatId(0);
-                databaseHelper.setInterlocutornickname("");
-                databaseHelper.setInterlocutorId(0);
+                findChateRunner.run();
+                getMessageHandler.removeCallbacks(getMessageRunner);
+                prbFindChat.setVisibility(View.VISIBLE);
 
                 break;
         }

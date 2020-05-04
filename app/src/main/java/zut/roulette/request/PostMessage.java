@@ -43,8 +43,9 @@ public class PostMessage extends AsyncTask<Void, Void, Void> {
 
         Log.i("ChatAPI", "POST MESSAGE FINISHED "+String.valueOf(jsonResponse));
 
+
+
         return null;
     }
-
 
 }
