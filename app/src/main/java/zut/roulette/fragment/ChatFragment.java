@@ -28,6 +28,7 @@ import zut.roulette.R;
 import zut.roulette.database.DatabaseHelper;
 import zut.roulette.model.Message;
 import zut.roulette.request.DeleteChat;
+import zut.roulette.request.DeleteUser;
 import zut.roulette.request.GetMessage;
 import zut.roulette.request.GetUserChat;
 import zut.roulette.request.PostMessage;
@@ -66,7 +67,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     private Runnable findChateRunner = new Runnable() {
         @Override
         public void run() {
-            getChatHandler.postDelayed(getMessageRunner, 500);
+            getChatHandler.postDelayed(findChateRunner, 500);
             if (databaseHelper.getChatId() != 0) {
                 Log.i("ChatAPI", "FIND USER CHAT ");
                 prbFindChat.setVisibility(View.INVISIBLE);
@@ -74,13 +75,29 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                 messages.clear();
                 adapter.notifyDataSetChanged();
 
-                getMessageRunner.run();
                 getChatHandler.removeCallbacks(findChateRunner);
+                getMessageRunner.run();
+
+                tvStranger.setText(getResources().getString(R.string.talk_with) + " " + databaseHelper.getInterlocutorNickname());
 
             } else {
                 Log.i("ChatAPI", "RETRY find chat ");
                 new GetUserChat(databaseHelper).execute();
-                prbFindChat.setVisibility(View.INVISIBLE);
+            }
+        }
+    };
+
+    private Handler deleteChatHandler = new Handler();
+    private Runnable deleteChatRunner = new Runnable() {
+        @Override
+        public void run() {
+            deleteChatHandler.postDelayed(deleteChatRunner, 1000);
+            if (databaseHelper.getChatId() != 0) {
+                Log.i("ChatAPI", "CHECK - CHAT NOT DELETED ");
+            } else {
+                Log.i("ChatAPI", "CHECK - CHAT DELETED ! ");
+                deleteChatHandler.removeCallbacks(deleteChatRunner);
+                findChateRunner.run();
             }
         }
     };
@@ -142,36 +159,59 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.chat_fragment_btn_send:
-                Matcher matcher = ChatFragment.messagePattern.matcher(etMessage.getText());
-                if (!matcher.matches()) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.text_to_short), Toast.LENGTH_LONG).show();
-                    break;
+                if(databaseHelper.getChatId()==0){
+                    Toast.makeText(getActivity(), getResources().getString(R.string.stranger_disconected), Toast.LENGTH_LONG).show();
+                } else {
+                    Matcher matcher = ChatFragment.messagePattern.matcher(etMessage.getText());
+                    if (!matcher.matches()) {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.text_to_short), Toast.LENGTH_LONG).show();
+                        break;
+                    }
+                    new PostMessage(String.valueOf(etMessage.getText()),databaseHelper).execute();
+
+                    messages.add(new Message(databaseHelper.getUserNickName(),String.valueOf(etMessage.getText())));
+                    adapter.notifyDataSetChanged();
+                    recyclerView.smoothScrollToPosition(messages.size() - 1);
+
+
+                    etMessage.setText("");
                 }
-                new PostMessage(String.valueOf(etMessage.getText()),databaseHelper).execute();
-
-                messages.add(new Message(databaseHelper.getUserNickName(),String.valueOf(etMessage.getText())));
-                adapter.notifyDataSetChanged();
-                recyclerView.smoothScrollToPosition(messages.size() - 1);
-
-
-                etMessage.setText("");
                 break;
             case R.id.chat_fragment_btn_next:
-                new PostMessage(getResources().getString(R.string.stranger_disconected),databaseHelper).execute();
-                new DeleteChat(getResources().getString(R.string.stranger_disconected),databaseHelper).execute();
+                if(databaseHelper.getChatId()==0){
+                    getMessageHandler.removeCallbacks(getMessageRunner);
+                    prbFindChat.setVisibility(View.VISIBLE);
 
-                messages.add(new Message("INFO",getResources().getString(R.string.stranger_disconected)));
+                    deleteChatRunner.run();
+                } else{
+                    new PostMessage(getResources().getString(R.string.stranger_disconected),databaseHelper).execute();
+                    new DeleteChat(databaseHelper).execute();
 
-                adapter.notifyDataSetChanged();
-                recyclerView.smoothScrollToPosition(messages.size() - 1);
+                    messages.add(new Message("INFO",getResources().getString(R.string.stranger_disconected)));
 
-                findChateRunner.run();
-                getMessageHandler.removeCallbacks(getMessageRunner);
-                prbFindChat.setVisibility(View.VISIBLE);
+                    adapter.notifyDataSetChanged();
+                    recyclerView.smoothScrollToPosition(messages.size() - 1);
 
+                    getMessageHandler.removeCallbacks(getMessageRunner);
+                    prbFindChat.setVisibility(View.VISIBLE);
+
+                    deleteChatRunner.run();
+                }
                 break;
         }
 
 
+    }
+
+    @Override
+    public void onDestroy() {
+        getMessageHandler.removeCallbacks(getMessageRunner);
+        getChatHandler.removeCallbacks(findChateRunner);
+        deleteChatHandler.removeCallbacks(deleteChatRunner);
+        new PostMessage(getResources().getString(R.string.stranger_disconected),databaseHelper).execute();
+
+        if(databaseHelper.getChatId()!=0) new DeleteChat(databaseHelper).execute();
+        new DeleteUser(databaseHelper).execute();
+        super.onDestroy();
     }
 }

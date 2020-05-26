@@ -118,6 +118,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.update(TABLE_NAME, values, COLUMN_ID + "=" + DEFAULT_USER_ID, null);
     }
 
+    public void setUserId(int userId) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER, userId);
+
+        sqLiteDatabase.update(TABLE_NAME, values, COLUMN_ID + "=" + DEFAULT_USER_ID, null);
+    }
+
+    public void setUserNickname(String userNickname) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NICKNAME, userNickname);
+
+        sqLiteDatabase.update(TABLE_NAME, values, COLUMN_ID + "=" + DEFAULT_USER_ID, null);
+    }
+
     public void setInterlocutorId(int interlocutorId) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 

@@ -15,13 +15,11 @@ public class DeleteChat extends AsyncTask<Void, Void, Void> {
 
     private static final String USER_URL = "http://46.41.135.179/chat/";
 
-    private String message;
     private DatabaseHelper databaseHelper;
 
     private HttpResponse<String> response;
 
-    public DeleteChat(String message, DatabaseHelper databaseHelper) {
-        this.message = message;
+    public DeleteChat(DatabaseHelper databaseHelper) {
         this.databaseHelper = databaseHelper;
 
     }

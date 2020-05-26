@@ -71,7 +71,11 @@ public class RecyclerChat extends RecyclerView.Adapter<RecyclerChat.ViewHolder> 
 
             tvAuthor.setText(currentMessage.getAuthor());
             tvMessage.setText(currentMessage.getText());
-
+            if(currentMessage.getText().equals("Czat zakończył się.")){
+                tvMessage.setTextColor(Color.parseColor("#c70039"));
+            } else {
+                tvMessage.setTextColor(Color.rgb(0,0,0));
+            }
         }
 
         @Override

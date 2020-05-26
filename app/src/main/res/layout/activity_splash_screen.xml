@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center_vertical">
@@ -14,7 +15,16 @@
         android:gravity="center"
         android:text="@string/app_name"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:textStyle="bold" />
+
+    <ImageView
+
+        android:paddingTop="50dp"
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="299dp"
+        app:srcCompat="@drawable/zut_roulette_logo"
+        android:contentDescription="@string/logo_desc" />
 
 </LinearLayout>

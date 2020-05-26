@@ -41,7 +41,7 @@ public class PostMessage extends AsyncTask<Void, Void, Void> {
         JSONObject jsonResponse = new JSONObject();
 
 
-        Log.i("ChatAPI", "POST MESSAGE FINISHED "+String.valueOf(jsonResponse));
+        Log.i("ChatAPI", "POST MESSAGE FINISHED TO"+databaseHelper.getInterlocutorId()+" "+this.message);
 
 
 

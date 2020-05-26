@@ -1388,6 +1388,7 @@ drawable rounded_edittext
 drawable test_custom_background
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+drawable zut_roulette_logo
 id ALT
 id BOTTOM_END
 id BOTTOM_START
@@ -1534,6 +1535,8 @@ id icon
 id icon_group
 id ifRoom
 id image
+id imageView
+id imageView3
 id info
 id invisible
 id italic
@@ -1843,7 +1846,6 @@ layout text_view_with_line_height_from_style
 layout text_view_with_theme_line_height
 layout text_view_without_line_height
 mipmap ic_launcher
-mipmap ic_launcher_round
 plurals mtrl_badge_content_description
 string abc_action_bar_home_description
 string abc_action_bar_up_description
@@ -1892,6 +1894,7 @@ string icon_content_description
 string invalid_login
 string login
 string login_hint
+string logo_desc
 string messageHint
 string mtrl_badge_numberless_content_description
 string mtrl_chip_close_icon_content_description

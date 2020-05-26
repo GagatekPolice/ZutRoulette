@@ -61,18 +61,33 @@ public class GetMessage extends AsyncTask<Void, Void, Void> {
             Log.e("Error", "Message not found "+err);
         }
 
-        Log.i("ChatAPI", "GET MESSAGE FINISHED "+String.valueOf(jsonResponse));
+        Log.i("ChatAPI", "GET MESSAGE FINISHED "+databaseHelper.getUserId()+" : "+String.valueOf(jsonResponse));
 
         if(jsonResponse.has("message")) {
             try {
                 isMessageAdded = true;
-                if(jsonResponse.getString("message").equals("Czat zakończył się.")){
-                    messages.add(new Message("INFO",jsonResponse.getString("message")));
+                if(messages.size()>0 && messages.get(messages.size() - 1).getText().equals("Czat zakończył się.")){
+                    databaseHelper.setChatId(0);
+                    databaseHelper.setInterlocutornickname("");
+                    databaseHelper.setInterlocutorId(0);
+
+                    Log.i("ChatAPI", "CHAT ENDED");
+                    messages.add(new Message("INFO",jsonResponse.getString("Czat zakończył się.")));
                 } else {
                     messages.add(new Message(databaseHelper.getInterlocutorNickname(),jsonResponse.getString("message")));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+            }
+        }
+
+        if(jsonResponse.has("message")){
+            if(messages.get(messages.size() - 1).getText().equals("Czat zakończył się.")){
+                databaseHelper.setChatId(0);
+                databaseHelper.setInterlocutornickname("");
+                databaseHelper.setInterlocutorId(0);
+
+                Log.i("ChatAPI", "CHAT ENDED");
             }
         }
 
@@ -85,6 +100,7 @@ public class GetMessage extends AsyncTask<Void, Void, Void> {
         if(isMessageAdded && messages.size()>1) {
             recyclerView.smoothScrollToPosition(messages.size() - 1);
         }
+
         super.onPostExecute(aVoid);
     }
 }
